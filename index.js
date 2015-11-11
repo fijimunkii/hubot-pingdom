@@ -26,9 +26,9 @@ module.exports = function(hubot) {
   function pingdome() {
     [].concat(hubot.brain.get('pings')).forEach(function(url) {
       request(url, function(err, res, body) {
-        if ([200,403,"200","403"].indexOf(res.statusCode) < 0) {
-          sendMessage(null, url + ' is DOWN!');
-        }
+        if (err) sendMessage(null, 'Error contacting: ' + url + '  ' + err);
+        else if ([200,400,403,"200","400","403"].indexOf(res.statusCode) < 0)
+          sendMessage(null, url + ' is DOWN!  statusCode:' + res.statusCode);
       });
     });
   }
