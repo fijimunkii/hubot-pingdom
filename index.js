@@ -19,7 +19,8 @@ module.exports = function(hubot) {
   function sendMessage(message, msg) {
     console.log(msg);
     hubot.messageRoom(room, msg);
-    if (message && message.envelope.room !== room) message.send(msg);
+    if (message && message.envelope && message.envelope.room !== room)
+      message.send(msg);
   }
 
   function pingdome() {
